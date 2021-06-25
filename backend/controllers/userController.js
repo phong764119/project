@@ -42,7 +42,7 @@ const registerUser = asyncHandler(async (req, res) => {
     throw new Error("user.existing");
   }
 
-  const user = await User.create({ username, password, email, fullName, phone });
+  const user = await User.create({ username, password, email, fullName, phone, role: "user" });
   var obj = {
     _id: user._id,
     role: user.role,
