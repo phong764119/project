@@ -4,8 +4,16 @@ const UsersSchema = new Schema(
   {
     username: String,
     password: String,
-    user_level: Number,
-    full_name: String,
+    email: Number,
+    role: {
+      type: String,
+      enum: ["admin", "user"],
+    },
+    fullName: String,
+    phone: String,
+    points: { type: Schema.Types.Decimal128, default: 0 },
+    confirmed: { type: Boolean, default: false },
+    activate: { type: Boolean, default: true },
   },
   { timestamps: true }
 );
