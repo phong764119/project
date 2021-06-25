@@ -40,13 +40,23 @@ const protectRoute = async (req, res, next) => {
     }
   } catch (error) {
     res.status(401);
-    next(error);
+    console.error(error);
+    next(new Error("not.authorized"));
   }
 
   if (!pass) {
     res.status(401);
-    next(new Error("Not authorized"));
+    next(new Error("not.authorized"));
   }
 };
 
-module.exports = { notFound, errorHandler, protectRoute };
+const adminRoute = async (req, res, next) => {
+  if (req.user && req.user.role == "admin") {
+    next();
+  } else {
+    res.status(401);
+    throw new Error("not.admin");
+  }
+};
+
+module.exports = { notFound, errorHandler, protectRoute, adminRoute };
